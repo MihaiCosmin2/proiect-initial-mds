@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
+# model pentru useri
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=25, unique=True)
     birth_date = models.DateField()
@@ -19,14 +19,14 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
-
+# model pentru categorii
 class Category(models.Model): 
     name = models.CharField(max_length=25)
     
     def __str__(self):
         return self.name
 
-
+# model pentru produse
 class Product(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  
     name = models.CharField(max_length=75)
@@ -37,12 +37,12 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-
+# model pentru imaginile atribuite produselor
 class Image(models.Model): 
     id_product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="product_images/", blank=True, null=True)
 
-
+# model pentru recenzii
 class Review(models.Model):
     id_buyer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='reviews_given')
     id_seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='reviews_received')
