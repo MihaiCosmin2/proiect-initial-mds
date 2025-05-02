@@ -1,11 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketplace</title>
-</head>
-<body>
-    test
-</body>
-</html>
+    {% extends "base.html" %}
+    {% load static %}
+    {% block title %} HomePage {% endblock title %}
+
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% endblock %}
+
+{% block content %}
+<div class="search-bar-container-color">
+  <div class="container py-4"> <!-- barei asteia de search ii trebuie atribuita si "cautari similare", cand scrii cateva litere sa ti se autocompleteze ca userul sa nu
+                                  se gandeasca prima oara sa apese pe butonul de "cauta" ci doar sa apese pe similare, nu stiu cum se implementeaza asta da vedem -->
+    
+    <form class="d-flex flex-column flex-lg-nowrap flex-lg-row w-100 gap-2 gap-lg-0">
+
+      <div class="input-group flex-grow-1">
+        <span class="input-group-text">
+          <span class="material-symbols-outlined">search</span>
+        </span>
+        <input
+          type="text"
+          class="form-control btn-big flex-grow-1"
+          placeholder="What exactly are you looking for?"
+        >
+      </div>
+
+      <select class="form-select w-100 w-lg-auto btn-big flex-grow-1">
+        <option selected>Choose location</option>
+        <option>Bucuresti</option>
+        <option>Cluj-Napoca</option>
+        <option>Timisoara</option>
+      </select>
+
+      <button class="btn btn-primary w-100 w-lg-auto btn-big flex-grow-0" type="submit">
+        Search
+      </button>
+    </form>
+  </div>
+</div>
+  
+<!-- Categoriile tipurilor de produse -->
+<div class="container py-5">
+  <h2 class="mb-4 text-center">Main Categories</h2>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for cat in categories %}
+      <div class="col">
+        <a href="{{ cat.get_absolute_url }}"
+           class="d-block text-center text-decoration-none category-card p-3 rounded">
+           <img
+           src="{{ cat.image.url }}"
+           alt="{{ cat.name }}"
+           class="mb-2"
+           style="width:80px; height:80px; object-fit:cover;"
+            >
+          <p class="category-name mb-0 mt-2 px-2 py-1 rounded">
+            {{ cat.name }}
+          </p>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- Anunturile promovate -->
+ <div class="container py-5">
+    <h2 class="mb-4 text-center">Promoted ads</h2>
+
+    
+ </div>
+{% endblock content %}

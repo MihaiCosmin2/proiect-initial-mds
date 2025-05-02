@@ -1,0 +1,31 @@
+/* colţuri unite într-un dreptunghi continuu la ≥ lg */
+@media (min-width: 992px) {
+    .input-group > .form-control      { border-top-right-radius: 0; border-bottom-right-radius: 0;}
+    .w-lg-auto.form-select            { border-radius: 0;}
+    .w-lg-auto.btn                    { border-top-left-radius: 0; border-bottom-left-radius: 0;}
+  }
+
+.btn-big {
+    padding: 0.95rem 1.45rem;
+    font-size: 1.325rem;
+}
+
+.search-bar-container-color{
+  background-color: aliceblue;
+}
+
+.category-text-size{
+  font-size: 25px;
+}
+
+.category-card {
+  transition: background-color .2s ease;
+}
+.category-card:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+.category-card:hover .category-name {
+  background-color: #e9b743;
+  color: white;
+  transition: background-color .2s ease, color .2s ease;
+}

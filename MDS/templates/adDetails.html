@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Add a new Ad! {% endblock title %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<head>
+  <title>{{ ad.title }} · Marketplace</title>
+  
+  <style>
+    .gallery-thumb { width: 80px; height:80px; object-fit:cover; cursor:pointer; }
+    .gallery-main  { width:100%; max-height:480px; object-fit:cover; }
+    .phone-btn     { letter-spacing:1px; }
+    .map-box iframe{ border:0;width:100%;height:180px; }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+
+  
+  <div class="row g-4">
+
+    
+    <div class="col-lg-8">
+
+      <div class="mb-3">
+        <div class="d-flex gap-2 mt-2 flex-wrap">
+          {% if ad.photos %}
+            {% for img in ad.photos %}
+              <img src="{{ img.url }}" …>
+            {% endfor %}
+          {% else %}
+            <img src="{% static 'images/defaultImage.jpeg' %}"
+                 class="gallery-thumb rounded" …>
+          {% endif %}
+        </div>        
+        <div class="d-flex gap-2 mt-2 flex-wrap">
+          {% for img in ad.photos %}
+          <div class="d-flex gap-2 mt-2 flex-wrap">
+            {% if ad.photos %}
+              {% for img in ad.photos %}
+                <img src="{{ img.url }}" …>
+              {% endfor %}
+            {% else %}
+              <img src="{% static 'images/defaultImage.jpeg' %}"
+                   class="gallery-thumb rounded" …>
+            {% endif %}
+          </div>          
+          {% endfor %}
+        </div>
+      </div>
+
+      <h2 class="fw-bold" href="{% url 'ad_details' ad.pk %}">{{ ad.title }}</h2>
+      <p class="fs-4 text-success fw-semibold">{{ ad.price }} {{ ad.currency }}</p>
+
+      <div class="mb-3">
+        {% for tag in ad.tags %}
+          <span class="badge text-bg-secondary me-1">{{ tag }}</span>
+        {% endfor %}
+      </div>
+
+      <h5>Description</h5>
+      <p>{{ ad.description|linebreaks }}</p>
+
+      
+      <h5>Seller information</h5>
+      <ul class="list-unstyled">
+        <li>Listed on<strong>{{ ad.created|date:"M d,Y" }}</strong></li>
+        <li>Ad ID<strong>{{ ad.pk }}</strong></li>
+        <li>Views<strong>{{ ad.views }}</strong></li>
+      </ul>
+
+    </div>
+
+
+    
+    <div class="col-lg-4">
+
+      
+      <div class="card mb-3">
+        <div class="card-body text-center">
+          {% if seller.profile_picture %}
+          <h5 class="card-title">{{ seller.username }}</h5>
+          <img src="{{ seller.profile_picture.url }}"
+              class="rounded-circle mb-2"
+              style="width:96px;height:96px;"
+              alt="avatar">
+          {% else %}
+            <img src=""
+                class="rounded-circle mb-2"
+                style="width:96px;height:96px;"
+                alt="avatar placeholder">
+          {% endif %}
+
+          
+          {% if seller.phone %}
+            <button class="btn btn-outline-primary w-100 phone-btn"
+                    onclick="this.innerText='{{ seller.phone }}'; this.classList.remove('btn-outline-primary'); this.classList.add('btn-primary');">
+              {{ seller.phone_masked }}show
+            </button>
+          {% endif %}
+        </div>
+      </div>
+
+      
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Location</h6>
+          <p class="mb-3">{{ ad.location_text }}</p>
+          <div class="map-box rounded overflow-hidden">
+            <iframe src="https://maps.google.com/maps?q={{ ad.location_lat }},{{ ad.location_lng }}&hl=en&z=14&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

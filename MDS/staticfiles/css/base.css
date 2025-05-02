@@ -1,0 +1,53 @@
+.custom-color {
+    background-color: #e9b743;
+}
+.container-xl {
+    display: flex;
+    justify-content: space-between;
+}
+.material-symbols-outlined {
+    font-size: 32px;
+    vertical-align: middle;
+}
+
+.dropdown-menu {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.dropdown .dropdown-menu.show {
+    max-height: 300px;
+    opacity: 1;
+}
+
+.dropdown .dropdown-menu{
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    
+}
+
+.dropdown .dropdown-menu .dropdown-item:hover {
+    background-color: #e9b743;
+}
+
+.dropdown .dropdown-menu .dropdown-item-username {
+    display: block;
+    margin: 15px;
+}
+
+.dropdown .dropdown-menu .dropdown-item-title {
+    font-style: normal;
+    color:rgb(124, 124, 124);
+    display: block;
+    margin: 15px;
+    margin-bottom: 5px;
+}
+
+.dropdown .dropdown-menu .dropdown-item{
+    display: block;
+}
+

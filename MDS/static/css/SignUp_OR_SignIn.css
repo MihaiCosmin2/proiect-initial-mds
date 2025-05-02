@@ -1,0 +1,52 @@
+#login-box-greeting-text{
+    font-size: 40px;
+    letter-spacing: 0.5px;
+    line-height: 42px;
+    margin: 0 0 6px;
+}
+
+#or-line1, #or-line2{
+    border-top: 2px solid rgb(130, 130, 130);
+}
+
+#or-word{
+    font-weight: 500;
+}
+
+#sign-in-button, #sign-up-button{
+    border-bottom: 5px solid transparent;
+    border-radius: 0;
+    box-shadow: inset 0 -2px 0 0 black;
+
+}
+
+#sign-in-button:hover, #sign-up-button:hover{
+    box-shadow: inset 0 -5px 0 0 black;
+}
+
+.btn-selected{
+    box-shadow: inset 0 -5px 0 0 black !important; /* N-ar trebuii sa fie !important aici, e un fix barbaric ca sa zic asa ca nush de ce nu merge :)) */
+}
+
+#sign-in-text, #sign-up-text{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+#code100{
+    margin-bottom: 30px !important;
+}
+
+.form-check-input{
+    width:20px;
+    height:20px;
+    border: 2px solid black;
+    cursor:pointer;
+}
+
+
+@media (min-width: 768px) {
+    .custom-card{
+        max-width: 400px !important;
+    }
+}
