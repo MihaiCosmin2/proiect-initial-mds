@@ -53,7 +53,6 @@ def sign_out(request):
 
 def ad_details(request, pk):
     ad = get_object_or_404(Product, pk=pk)
-    seller = ad.user
-    context = {"ad": ad, "seller": seller, "ad.views": ad.views}
-    return render(request, "adDetails.html", context)
+    photos = ad.gallery_set.all()
+    return render(request, "adDetails.html", {"ad": ad, "seller": ad.user, "photos": photos})
 
