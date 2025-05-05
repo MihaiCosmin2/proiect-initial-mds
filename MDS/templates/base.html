@@ -28,7 +28,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a href="{% url 'profile' %}" style="text-decoration: none; color: black;" class="dropdown-item-username">{{ request.user.username }}</a> <!--TODO: PP este profile picture si la username se afiseaza prin django + cand apesi pe ele sa te duca la template ul de profil.-->
                             <span class="dropdown-item-title">Actions</span>
-                            <li><a class="dropdown-item" href="{% url 'my_ads' %}">My Ads</a></li>
+                            <li><a class="dropdown-item" href="{% url 'my_ads' %}">My Listings</a></li>
                             <li>
                                 <form method="POST" action="{% url 'logout' %}">
                                     {% csrf_token %}
@@ -36,7 +36,7 @@
                                 </form>
                             </li>
                             <span class="dropdown-item-title">Favourites:</span>
-                            <li><a class="dropdown-item" href="#">Ads: <span>0</span> </a> </li> <!--TODO: de implementat un sistem ce numara nr de anunturi active ale utilizatorilor, printr o variabila transimisa template ului in view.-->
+                            <li><a class="dropdown-item" href="#">Listings: <span>0</span> </a> </li> <!--TODO: de implementat un sistem ce numara nr de anunturi active ale utilizatorilor, printr o variabila transimisa template ului in view.-->
                         </ul>
                     </div>
                 {% else %}
@@ -47,9 +47,9 @@
                 {% endif %}
                 
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'add_product' %}" class="btn btn-primary btn-lg ms-4">Add new ad</a>
+                    <a href="{% url 'add_product' %}" class="btn btn-primary btn-lg ms-4">Add new listing</a>
                 {% else %}
-                    <a href="{% url 'auth' %}" class="btn btn-primary btn-lg ms-4">Add new ad</a>
+                    <a href="{% url 'auth' %}" class="btn btn-primary btn-lg ms-4">Add new listing</a>
                 {% endif %}
             </div>
         </div>

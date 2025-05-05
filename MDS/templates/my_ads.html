@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}My Ads{% endblock %}
+{% block title %}My Listings{% endblock %}
 {% block content %}
 <div class="container py-5">
-  <h2 class="mb-4 text-center">My Ads</h2>
+  <h2 class="mb-4 text-center">My Listings</h2>
 
   {% if products %}
     <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -29,7 +29,7 @@
       {% endfor %}
     </div>
   {% else %}
-    <p class="text-center">You have no ads yet.</p>
+    <p class="text-center">You have no listings yet.</p>
   {% endif %}
 </div>
 {% endblock %}

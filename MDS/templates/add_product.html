@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Add New Product {% endblock %}
+{% block title %} Add New Listing {% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="container py-5">
-  <h2 class="text-center mb-4">Add New Product</h2>
+  <h2 class="text-center mb-4">Add New Listing</h2>
 
   {% if messages %}
     {% for message in messages %}
@@ -55,7 +55,7 @@
     </div>
 
     <div class="col-12">
-      <button type="submit" class="btn btn-primary">Add Product</button>
+      <button type="submit" class="btn btn-primary">Add Listing</button>
     </div>
   </form>
 </div>

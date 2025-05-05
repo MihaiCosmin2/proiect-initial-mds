@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container py-5">
-  <h2 class="mb-4">Products in "{{ category.name }}"</h2>
+  <h2 class="mb-4">Listings in "{{ category.name }}"</h2>
 
   <!-- Form de filtrare preț -->
   <form method="get" class="row g-3 mb-4">
@@ -32,7 +32,7 @@
         </div>
       </div>
     {% empty %}
-      <p>No products found in this category.</p>
+      <p>No listings found in this category.</p>
     {% endfor %}
   </div>
 </div>
