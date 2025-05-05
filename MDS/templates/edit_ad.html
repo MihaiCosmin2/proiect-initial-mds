@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Edit Ad{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4 text-center">Edit Ad</h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input type="text" class="form-control" name="title" value="{{ product.title }}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Price</label>
+      <input type="number" class="form-control" name="price" value="{{ product.price }}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" name="description" rows="4">{{ product.description }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Category</label>
+      <select class="form-select" name="category">
+        {% for cat in categories %}
+          <option value="{{ cat.id }}" {% if product.category == cat %}selected{% endif %}>{{ cat.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Upload Images</label>
+      <input type="file" class="form-control" name="images" multiple>
+    </div>
+
+    {% if product.gallery_set.all %}
+      <div class="mb-3">
+        <label class="form-label">Current Images</label>
+        <div class="row">
+          {% for img in product.gallery_set.all %}
+          <div class="col-3 mb-3 text-center">
+            <img src="{{ img.image.url }}" class="img-fluid mb-1" style="max-height: 100px;">
+            <form method="post" action="{% url 'delete_image' img.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+            </form>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+    <a href="{% url 'my_ads' %}" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
+</div>
+{% endblock %}

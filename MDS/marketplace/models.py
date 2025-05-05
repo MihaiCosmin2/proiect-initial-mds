@@ -79,6 +79,10 @@ class Product(models.Model):
     
     def __str__(self):
         return self.title
+    
+    @property
+    def main_image(self):
+        return self.gallery_set.first().image.url if self.gallery_set.exists() else None
 
 # model pentru imaginile atribuite produselor
 class Gallery(models.Model): 

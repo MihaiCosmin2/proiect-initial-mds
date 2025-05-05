@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">Products in "{{ category.name }}"</h2>
+
+  <!-- Form de filtrare preț -->
+  <form method="get" class="row g-3 mb-4">
+    <div class="col-md-3">
+      <input type="number" name="min_price" class="form-control" placeholder="Min Price" value="{{ min_price }}">
+    </div>
+    <div class="col-md-3">
+      <input type="number" name="max_price" class="form-control" placeholder="Max Price" value="{{ max_price }}">
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <a href="{% url 'category' category.slug %}" class="btn btn-secondary">Reset</a>
+    </div>
+  </form>
+
+  <div class="row">
+    {% for product in products %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="{{ product.main_image }}" class="card-img-top" alt="{{ product.title }}" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text">{{ product.price }} RON</p>
+            <a href="{% url 'ad_details' product.pk %}" class="btn btn-primary">Details</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No products found in this category.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

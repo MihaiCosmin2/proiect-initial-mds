@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %} Search Results {% endblock %}
+{% block content %}
+<div class="container py-5">
+  <form method="get" class="mb-4">
+    <div class="row g-2">
+      <div class="col-md-3">
+        <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ query }}">
+      </div>
+      <div class="col-md-2">
+        <input type="number" name="min_price" class="form-control" placeholder="Min Price" value="{{ request.GET.min_price }}">
+      </div>
+      <div class="col-md-2">
+        <input type="number" name="max_price" class="form-control" placeholder="Max Price" value="{{ request.GET.max_price }}">
+      </div>
+      <div class="col-md-3">
+        <select name="category" class="form-select">
+          <option value="">All Categories</option>
+          {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Filter</button>
+      </div>
+    </div>
+  </form>
+  <h2 class="mb-4">Results for "{{ query }}"</h2>
+  <div class="row">
+    {% for product in products %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ product.main_image }}" class="card-img-top" alt="{{ product.title }}" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text">{{ product.price }} RON</p>
+            <a href="{% url 'ad_details' product.pk %}" class="btn btn-primary">Details</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No results found.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

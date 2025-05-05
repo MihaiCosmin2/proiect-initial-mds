@@ -13,7 +13,7 @@
 <body>
     <div class="custom-color">
         <div class="container-xl d-flex justify-content-between align-items-center" style="height: 100px">
-            <span>LOGO</span> <!--De ales un logo, ori o poza ori un text-->
+            <a href="{% url "home" %}" style="text-decoration: none; color: black">LOGO</a> <!--De ales un logo, ori o poza ori un text-->
             <div class="d-flex align-items-center">                                           <!-- TODO:  urmatoarele 3 todo-uri o sa fie doar cand userul este logat. -->
                 <span class="material-symbols-outlined" style="margin-right: 40px;">chat</span> <!--TODO: de implementat o bulina in coltul de sus a iconitei in care se afla o variabila ce afiseaza nr de mesaje noi (maxim 1 dintr-un chat)-->
                 <span class="material-symbols-outlined" style="margin-right: 40px;">notifications</span> <!--TODO: de implementat o bulina in coltul de sus a iconitei in care se afla o variabila ce afiseaza nr de notificari noi (nu stiu ce fel de notificari, dar asa e si pe olx)-->
@@ -26,17 +26,17 @@
                         <span style="font-size: 18px; vertical-align: middle;">             Your Account</span>
                         <span class="material-symbols-outlined" style="margin-right: 40px;">keyboard_arrow_down</span>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <span class="dropdown-item-username">PP  {{ request.user.username }}</span> <!--TODO: PP este profile picture si la username se afiseaza prin django + cand apesi pe ele sa te duca la template ul de profil.-->
-                            <span class="dropdown-item-title">titlu actiuni 1</span>
-                            <li><a class="dropdown-item" href="#">Actiune1</a></li>
-                            <li><a class="dropdown-item" href="#">Actiune2</a></li>
-                            <li><a class="dropdown-item" href="#">Actiune3</a></li>
-                            <span class="dropdown-item-title">titlu actiuni 2</span>
-                            <li><a class="dropdown-item" href="#">Actiune1</a></li>
-                            <li><a class="dropdown-item" href="#">Actiune2</a></li>
-                            <li><a class="dropdown-item" href="#">Actiune3</a></li>
-                            <span class="dropdown-item-title">Salvate ca favorite:</span>
-                            <li><a class="dropdown-item" href="#">Anunturi: <span>0</span> </a> </li> <!--TODO: de implementat un sistem ce numara nr de anunturi active ale utilizatorilor, printr o variabila transimisa template ului in view.-->
+                            <a href="{% url 'profile' %}" style="text-decoration: none; color: black;" class="dropdown-item-username">{{ request.user.username }}</a> <!--TODO: PP este profile picture si la username se afiseaza prin django + cand apesi pe ele sa te duca la template ul de profil.-->
+                            <span class="dropdown-item-title">Actions</span>
+                            <li><a class="dropdown-item" href="{% url 'my_ads' %}">My Ads</a></li>
+                            <li>
+                                <form method="POST" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item text-danger">Logout</button>
+                                </form>
+                            </li>
+                            <span class="dropdown-item-title">Favourites:</span>
+                            <li><a class="dropdown-item" href="#">Ads: <span>0</span> </a> </li> <!--TODO: de implementat un sistem ce numara nr de anunturi active ale utilizatorilor, printr o variabila transimisa template ului in view.-->
                         </ul>
                     </div>
                 {% else %}
@@ -47,7 +47,7 @@
                 {% endif %}
                 
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'home' %}" class="btn btn-primary btn-lg ms-4">Add new ad</a>
+                    <a href="{% url 'add_product' %}" class="btn btn-primary btn-lg ms-4">Add new ad</a>
                 {% else %}
                     <a href="{% url 'auth' %}" class="btn btn-primary btn-lg ms-4">Add new ad</a>
                 {% endif %}

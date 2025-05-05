@@ -14,7 +14,7 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ("is_active",)
 
     fieldsets = (
-        ("Personal Info", {"fields": ("username", "password", "email", "phone_number", "birth_date", "address", "profile_picture")}),
+        ("Personal Info", {"fields": ("first_name","last_name","username", "password", "email", "phone_number", "birth_date", "address", "profile_picture")}),
         ("Permissions", {"fields": ("is_active", "confirmed_email", "blocat")}),
         ("Important Dates", {"fields": ("last_login","date_joined")}),
     )

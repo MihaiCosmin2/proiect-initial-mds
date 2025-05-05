@@ -11,30 +11,31 @@
   <div class="container py-4"> <!-- barei asteia de search ii trebuie atribuita si "cautari similare", cand scrii cateva litere sa ti se autocompleteze ca userul sa nu
                                   se gandeasca prima oara sa apese pe butonul de "cauta" ci doar sa apese pe similare, nu stiu cum se implementeaza asta da vedem -->
     
-    <form class="d-flex flex-column flex-lg-nowrap flex-lg-row w-100 gap-2 gap-lg-0">
-
-      <div class="input-group flex-grow-1">
-        <span class="input-group-text">
-          <span class="material-symbols-outlined">search</span>
-        </span>
-        <input
-          type="text"
-          class="form-control btn-big flex-grow-1"
-          placeholder="What exactly are you looking for?"
-        >
-      </div>
-
-      <select class="form-select w-100 w-lg-auto btn-big flex-grow-1">
-        <option selected>Choose location</option>
-        <option>Bucuresti</option>
-        <option>Cluj-Napoca</option>
-        <option>Timisoara</option>
-      </select>
-
-      <button class="btn btn-primary w-100 w-lg-auto btn-big flex-grow-0" type="submit">
-        Search
-      </button>
-    </form>
+                                  <form method="GET" action="{% url 'search_results' %}" class="d-flex flex-column flex-lg-nowrap flex-lg-row w-100 gap-2 gap-lg-0">
+                                    <div class="input-group flex-grow-1 position-relative">
+                                      <span class="input-group-text">
+                                        <span class="material-symbols-outlined">search</span>
+                                      </span>
+                                      <input
+                                        type="text"
+                                        id="search-input"
+                                        name="q"
+                                        class="form-control btn-big flex-grow-1"
+                                        placeholder="What exactly are you looking for?"
+                                        autocomplete="off"
+                                      >
+                                      <div id="suggestions" class="position-absolute bg-white border w-100" style="z-index: 1000;"></div>
+                                    </div>
+                                  
+                                    <select name="location" class="form-select w-100 w-lg-auto btn-big flex-grow-1">
+                                      <option value="">Choose location</option>
+                                      <option>Bucuresti</option>
+                                      <option>Cluj-Napoca</option>
+                                      <option>Timisoara</option>
+                                    </select>
+                                  
+                                    <button class="btn btn-primary w-100 w-lg-auto btn-big flex-grow-0" type="submit">Search</button>
+                                  </form>
   </div>
 </div>
   

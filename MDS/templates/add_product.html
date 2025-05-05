@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Add New Product {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">Add New Product</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST" enctype="multipart/form-data" class="row g-3">
+    {% csrf_token %}
+
+    <div class="col-md-6">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+
+    <div class="col-md-6">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+    </div>
+
+    <div class="col-12">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+    </div>
+
+    <div class="col-md-6">
+      <label for="category" class="form-label">Category</label>
+      <select id="category" name="category" class="form-select" required>
+        <option value="" selected disabled>Choose category</option>
+        {% for cat in categories %}
+          <option value="{{ cat.id }}">{{ cat.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="images" class="form-label">Upload Images</label>
+      <input type="file" class="form-control" id="images" name="images" multiple accept="image/*">
+      <div id="image-preview" class="d-flex flex-wrap gap-2 mt-3"></div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Add Product</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const imageInput = document.getElementById('images');
+    const previewContainer = document.getElementById('image-preview');
+
+    imageInput.addEventListener('change', function () {
+      previewContainer.innerHTML = '';
+
+      Array.from(this.files).forEach(file => {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.height = '100px';
+            img.style.width = '100px';
+            img.style.objectFit = 'cover';
+            img.classList.add('rounded');
+            previewContainer.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}
