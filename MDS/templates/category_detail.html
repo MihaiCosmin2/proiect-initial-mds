@@ -29,7 +29,7 @@
             {% if product.sold == False %}
             <p class="card-text">{{ product.price }} RON</p>
             {% else %}
-            <p class="card-text">VANDUT</p>
+            <p class="card-text">SOLD</p>
             {% endif %}
             <a href="{% url 'ad_details' product.pk %}" class="btn btn-primary">Details</a>
           </div>

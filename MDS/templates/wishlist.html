@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="container py-5">
-    <h2 class="mb-4 text-center">Wishlist-ul meu</h2>
+    <h2 class="mb-4 text-center">My Wishlist</h2>
 
     {% if wishlist_items %}
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -16,7 +16,7 @@
                             <img src="{{ item.product.poza_principala.url }}" class="card-img-top" alt="{{ item.product.title }}" style="object-fit: cover; height: 200px;">
                         {% else %}
                             <div class="d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
-                                <span class="text-muted">Fără imagine</span>
+                                <span class="text-muted">No image</span>
                             </div>
                         {% endif %}
                         <div class="card-body d-flex flex-column">
@@ -25,10 +25,10 @@
                             <p class="card-text fw-bold mt-auto">{{ item.product.price }} RON</p>
                         </div>
                         <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
-                            <a href="{% url 'ad_details' item.product.id %}" class="btn btn-outline-primary btn-sm">Vezi</a>
+                            <a href="{% url 'ad_details' item.product.id %}" class="btn btn-outline-primary btn-sm">View</a>
                             <form method="POST" action="{% url 'remove_from_wishlist' item.id %}">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-outline-danger btn-sm">Șterge</button>
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
                             </form>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
         </div>
     {% else %}
         <div class="alert alert-info text-center mt-5">
-            Nu ai produse în wishlist momentan.
+            Your wishlist is currently empty.
         </div>
     {% endif %}
 </div>

@@ -53,7 +53,7 @@
       {% if ad.sold == False %}
         <p class="fs-4 text-success fw-semibold">{{ ad.price }} {{ ad.currency }}</p>
       {% else %}
-        <p class="fs-4 text-success fw-semibold">VANDUT {{ ad.currency }}</p>
+        <p class="fs-4 text-success fw-semibold">SOLD {{ ad.currency }}</p>
       {% endif %}
       <div class="mb-3">
         {% for tag in ad.tags %}
@@ -81,22 +81,45 @@
       {% if user.is_authenticated and user != seller and ad.sold == False  %}
       <div class="card mt-3 mb-3">
         <div class="card-body text-center">
-          <form method="post" action="{% url 'buy_product' ad.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success w-100">Buy this product</button>
-          </form>
+          <!-- Butonul care deschide modalul -->
+          <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#confirmBuyModal">
+            Buy this product
+          </button>
+      
+          <!-- Modalul de confirmare cumpărare -->
+          <div class="modal fade" id="confirmBuyModal" tabindex="-1" aria-labelledby="confirmBuyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form method="post" action="{% url 'buy_product' ad.id %}">
+                  {% csrf_token %}
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="confirmBuyModalLabel">Confirm Purchase</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure you want to buy <strong>{{ ad.title }}</strong> for <strong>{{ ad.price }} {{ ad.currency }}</strong>?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Confirm purchase</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      
     {% endif %}
     {% if user.is_authenticated and user != seller and ad.sold == False %}
   <div class="card mb-3">
     <div class="card-body text-center">
       {% if in_wishlist %}
-        <button class="btn btn-outline-secondary w-100" disabled>Deja în wishlist</button>
+        <button class="btn btn-outline-secondary w-100" disabled>Already in wishlist</button>
       {% else %}
         <form method="post" action="{% url 'add_to_wishlist' ad.id %}">
           {% csrf_token %}
-          <button type="submit" class="btn btn-outline-danger w-100">Adaugă în wishlist</button>
+          <button type="submit" class="btn btn-outline-danger w-100">Add to wishlist</button>
         </form>
       {% endif %}
     </div>
@@ -132,7 +155,7 @@
       </div>
 
       
-      <div class="card">
+      {% comment %} <div class="card">
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted">Location</h6>
           <p class="mb-3">{{ ad.location_text }}</p>
@@ -140,7 +163,7 @@
             <iframe src="https://maps.google.com/maps?q={{ ad.location_lat }},{{ ad.location_lng }}&hl=en&z=14&output=embed"></iframe>
           </div>
         </div>
-      </div>
+      </div> {% endcomment %}
 
     </div>
   </div>

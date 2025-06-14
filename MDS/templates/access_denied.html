@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Acces interzis{% endblock %}
+{% block title %}Access Denied{% endblock %}
 
 {% block content %}
 <div class="container text-center mt-5">
-    <h1 class="text-danger">⛔ Acces interzis</h1>
-    <p>Nu ai permisiunea de a accesa această pagină.</p>
-    <a href="{% url 'home' %}" class="btn btn-primary mt-3">Înapoi la Home</a>
+    <h1 class="text-danger">⛔ Access Denied</h1>
+    <p>You do not have permission to access this page.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-3">Back to Home</a>
 </div>
 {% endblock %}

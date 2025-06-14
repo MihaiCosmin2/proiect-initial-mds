@@ -7,7 +7,7 @@
             <div class="card shadow-lg mb-4">
                 <div class="card-body text-center">
                     {% if user_profile.profile_picture %}
-                        <img src="{{ user_profile.profile_picture.url }}" class="rounded-circle mb-3" width="120" height="120" alt="Poza profil">
+                        <img src="{{ user_profile.profile_picture.url }}" class="rounded-circle mb-3" width="120" height="120" alt="Profile picture">
                     {% else %}
                         <div class="rounded-circle bg-secondary d-inline-block mb-3" style="width: 120px; height: 120px;"></div>
                     {% endif %}
@@ -15,12 +15,12 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     {% if user_profile.birth_date %}
-                        <li class="list-group-item"><strong>Data nașterii:</strong> {{ user_profile.birth_date }}</li>
+                        <li class="list-group-item"><strong>Birth date:</strong> {{ user_profile.birth_date }}</li>
                     {% endif %}
                 </ul>
             </div>
 
-            <h4 class="mb-3 mt-4 text-center">Recenzii primite</h4>
+            <h4 class="mb-3 mt-4 text-center">Received Reviews</h4>
 
             {% if reviews %}
                 {% for review in reviews %}
@@ -33,19 +33,19 @@
                             {% if review.comment %}
                                 <p class="mt-2 mb-0">{{ review.comment }}</p>
                                 {% if request.user == review.buyer %}
-            <div class="mt-2">
-                <a href="{% url 'edit_review' review.id %}" class="text-blue-600 mr-3">Editează</a>
-                <a href="{% url 'delete_review' review.id %}" class="text-red-600">Șterge</a>
-            </div>
-        {% endif %}
+                                  <div class="mt-2">
+                                    <a href="{% url 'edit_review' review.id %}" class="me-3 text-primary">Edit</a>
+                                    <a href="{% url 'delete_review' review.id %}" class="text-danger">Delete</a>
+                                  </div>
+                                {% endif %}
                             {% else %}
-                                <p class="text-muted fst-italic mt-2 mb-0">Fără comentariu.</p>
+                                <p class="text-muted fst-italic mt-2 mb-0">No comment.</p>
                             {% endif %}
                         </div>
                     </div>
                 {% endfor %}
             {% else %}
-                <p class="text-muted text-center">Acest utilizator nu a primit încă recenzii.</p>
+                <p class="text-muted text-center">This user has no reviews yet.</p>
             {% endif %}
         </div>
     </div>

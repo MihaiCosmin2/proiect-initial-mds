@@ -3,36 +3,80 @@
 
 {% block content %}
 <div class="container mt-5">
-  <h2 class="mb-4">Dashboard Staff</h2>
+  <h2 class="mb-4">Staff Dashboard</h2>
 
-  <h3>Review-uri</h3>
+  <h3>Reviews</h3>
   <ul class="list-group mb-5">
     {% for review in reviews %}
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div>
-          <strong>Autor:</strong> {{ review.buyer.username }}<br>
-          <strong>Mesaj:</strong> {{ review.comment|truncatechars:100 }}
+          <strong>Author:</strong> {{ review.buyer.username }}<br>
+          <strong>Message:</strong> {{ review.comment|truncatechars:100 }}
         </div>
-        <a href="{% url 'delete_review' review.id %}" class="btn btn-danger btn-sm align-self-start">Șterge</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger btn-sm align-self-start" data-bs-toggle="modal" data-bs-target="#deleteReviewModal{{ review.id }}">
+          Delete
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="deleteReviewModal{{ review.id }}" tabindex="-1" aria-labelledby="deleteReviewModalLabel{{ review.id }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteReviewModalLabel{{ review.id }}">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete this review by <strong>{{ review.buyer.username }}</strong>?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{% url 'delete_review_admin' review.id %}" class="btn btn-danger">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </li>
     {% empty %}
-      <li class="list-group-item">Niciun review.</li>
+      <li class="list-group-item">No reviews found.</li>
     {% endfor %}
   </ul>
 
-  <h3>Postări</h3>
+  <h3>Posts</h3>
   <ul class="list-group">
     {% for product in products %}
       <li class="list-group-item d-flex justify-content-between align-items-start">
         <div>
-          <strong>Autor:</strong> {{ product.user.username }}<br>
-          <strong>Titlu:</strong> {{ product.title }}<br>
-          <strong>Descriere:</strong> {{ product.description|truncatechars:150 }}
+          <strong>Author:</strong> {{ product.user.username }}<br>
+          <strong>Title:</strong> {{ product.title }}<br>
+          <strong>Description:</strong> {{ product.description|truncatechars:150 }}
         </div>
-        <a href="{% url 'delete_post' product.id %}" class="btn btn-danger btn-sm align-self-start">Șterge</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger btn-sm align-self-start" data-bs-toggle="modal" data-bs-target="#deletePostModal{{ product.id }}">
+          Delete
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="deletePostModal{{ product.id }}" tabindex="-1" aria-labelledby="deletePostModalLabel{{ product.id }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deletePostModalLabel{{ product.id }}">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete this post titled "<strong>{{ product.title }}</strong>"?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{% url 'delete_post' product.id %}" class="btn btn-danger">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </li>
     {% empty %}
-      <li class="list-group-item">Nicio postare.</li>
+      <li class="list-group-item">No posts found.</li>
     {% endfor %}
   </ul>
 </div>

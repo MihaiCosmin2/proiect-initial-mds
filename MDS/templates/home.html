@@ -27,12 +27,12 @@
                                       <div id="suggestions" class="position-absolute bg-white border w-100" style="z-index: 1000;"></div>
                                     </div>
                                   
-                                    <select name="location" class="form-select w-100 w-lg-auto btn-big flex-grow-1">
+                                    {% comment %} <select name="location" class="form-select w-100 w-lg-auto btn-big flex-grow-1">
                                       <option value="">Choose location</option>
                                       <option>Bucuresti</option>
                                       <option>Cluj-Napoca</option>
                                       <option>Timisoara</option>
-                                    </select>
+                                    </select> {% endcomment %}
                                   
                                     <button class="btn btn-primary w-100 w-lg-auto btn-big flex-grow-0" type="submit">Search</button>
                                   </form>
@@ -65,9 +65,9 @@
 
 
 <!-- Anunturile promovate -->
- <div class="container py-5">
+ {% comment %} <div class="container py-5">
     <h2 class="mb-4 text-center">Promoted listings</h2>
 
     
- </div>
+ </div> {% endcomment %}
 {% endblock content %}

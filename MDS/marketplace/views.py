@@ -407,7 +407,7 @@ def staff_dashboard(request):
 
 
 @user_passes_test(is_admin)
-def delete_review(request, review_id):
+def delete_review_admin(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     review.delete()
     messages.success(request, "Review-ul a fost șters.")
