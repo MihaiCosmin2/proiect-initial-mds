@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Wishlist{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4 text-center">Wishlist-ul meu</h2>
+
+    {% if wishlist_items %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for item in wishlist_items %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        {% if item.product.poza_principala %}
+                            <img src="{{ item.product.poza_principala.url }}" class="card-img-top" alt="{{ item.product.title }}" style="object-fit: cover; height: 200px;">
+                        {% else %}
+                            <div class="d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
+                                <span class="text-muted">Fără imagine</span>
+                            </div>
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ item.product.title }}</h5>
+                            <p class="card-text text-muted">{{ item.product.description|truncatechars:100 }}</p>
+                            <p class="card-text fw-bold mt-auto">{{ item.product.price }} RON</p>
+                        </div>
+                        <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+                            <a href="{% url 'ad_details' item.product.id %}" class="btn btn-outline-primary btn-sm">Vezi</a>
+                            <form method="POST" action="{% url 'remove_from_wishlist' item.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Șterge</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center mt-5">
+            Nu ai produse în wishlist momentan.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

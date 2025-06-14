@@ -50,8 +50,11 @@
       </div>
 
       <h2 class="fw-bold" href="{% url 'ad_details' ad.pk %}">{{ ad.title }}</h2>
-      <p class="fs-4 text-success fw-semibold">{{ ad.price }} {{ ad.currency }}</p>
-
+      {% if ad.sold == False %}
+        <p class="fs-4 text-success fw-semibold">{{ ad.price }} {{ ad.currency }}</p>
+      {% else %}
+        <p class="fs-4 text-success fw-semibold">VANDUT {{ ad.currency }}</p>
+      {% endif %}
       <div class="mb-3">
         {% for tag in ad.tags %}
           <span class="badge text-bg-secondary me-1">{{ tag }}</span>
@@ -70,16 +73,43 @@
       </ul>
 
     </div>
+    
 
 
     
     <div class="col-lg-4">
+      {% if user.is_authenticated and user != seller and ad.sold == False  %}
+      <div class="card mt-3 mb-3">
+        <div class="card-body text-center">
+          <form method="post" action="{% url 'buy_product' ad.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success w-100">Buy this product</button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+    {% if user.is_authenticated and user != seller and ad.sold == False %}
+  <div class="card mb-3">
+    <div class="card-body text-center">
+      {% if in_wishlist %}
+        <button class="btn btn-outline-secondary w-100" disabled>Deja în wishlist</button>
+      {% else %}
+        <form method="post" action="{% url 'add_to_wishlist' ad.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger w-100">Adaugă în wishlist</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
 
+
+    
       
       <div class="card mb-3">
         <div class="card-body text-center">
+          <a href="{% url 'user_profile' username=ad.user.username %}">{{ ad.user.username }}</a>
           {% if seller.profile_picture %}
-          <h5 class="card-title">{{ seller.username }}</h5>
           <img src="{{ seller.profile_picture.url }}"
               class="rounded-circle mb-2"
               style="width:96px;height:96px;"

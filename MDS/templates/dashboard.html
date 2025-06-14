@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Dashboard Staff</h2>
+
+  <h3>Review-uri</h3>
+  <ul class="list-group mb-5">
+    {% for review in reviews %}
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div>
+          <strong>Autor:</strong> {{ review.buyer.username }}<br>
+          <strong>Mesaj:</strong> {{ review.comment|truncatechars:100 }}
+        </div>
+        <a href="{% url 'delete_review' review.id %}" class="btn btn-danger btn-sm align-self-start">Șterge</a>
+      </li>
+    {% empty %}
+      <li class="list-group-item">Niciun review.</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Postări</h3>
+  <ul class="list-group">
+    {% for product in products %}
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div>
+          <strong>Autor:</strong> {{ product.user.username }}<br>
+          <strong>Titlu:</strong> {{ product.title }}<br>
+          <strong>Descriere:</strong> {{ product.description|truncatechars:150 }}
+        </div>
+        <a href="{% url 'delete_post' product.id %}" class="btn btn-danger btn-sm align-self-start">Șterge</a>
+      </li>
+    {% empty %}
+      <li class="list-group-item">Nicio postare.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

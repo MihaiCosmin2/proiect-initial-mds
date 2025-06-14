@@ -26,7 +26,11 @@
           <img src="{{ product.main_image }}" class="card-img-top" alt="{{ product.title }}" style="height: 200px; object-fit: cover;">
           <div class="card-body">
             <h5 class="card-title">{{ product.title }}</h5>
+            {% if product.sold == False %}
             <p class="card-text">{{ product.price }} RON</p>
+            {% else %}
+            <p class="card-text">VANDUT</p>
+            {% endif %}
             <a href="{% url 'ad_details' product.pk %}" class="btn btn-primary">Details</a>
           </div>
         </div>

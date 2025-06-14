@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5 text-center">
+    <div class="alert alert-warning">
+        {{ message }}
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary">Înapoi la pagina principală</a>
+</div>
+{% endblock %}

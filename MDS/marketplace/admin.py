@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Category, Product, Gallery
+from .models import CustomUser, Category, Product, Gallery, Review, Transaction
 from django.utils.html import format_html
 
 
@@ -66,3 +66,14 @@ class ProductsAdmin(admin.ModelAdmin):
     list_display = ("title", "price", "category", "upload_date", "views")
     search_fields = ("title",)
     inlines = [GalleryInline]
+    
+@admin.register(Transaction)
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('buyer', 'seller', 'product', 'price', 'date')
+    list_filter = ('date',)
+    search_fields = ('buyer__username', 'seller__username', 'product__title')
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('buyer', 'seller', 'rating', 'comment', 'upload_date')
+    list_filter = ('seller',)

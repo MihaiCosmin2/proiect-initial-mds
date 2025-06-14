@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmare cumpărare produs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 30px;
+            color: #333;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            max-width: 600px;
+            margin: auto;
+        }
+        h2 {
+            color: #007BFF;
+        }
+        a.button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        a.button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Confirmare cumpărare</h2>
+        <p>Bună, <strong>{{ buyer.first_name }}</strong>,</p>
+
+        <p>Ai cumpărat cu succes produsul <strong>{{ product.title }}</strong> de la <strong>{{ seller.username }}</strong>.</p>
+
+        <p><strong>Detalii tranzacție:</strong></p>
+        <ul>
+            <li>Preț: {{ transaction.price }} RON</li>
+            <li>Data: {{ transaction.date }}</li>
+        </ul>
+
+        <p>Pentru a ajuta alți utilizatori și a evalua experiența ta, poți lăsa un review pentru vânzător:</p>
+
+        <a class="button" href="{{ review_link }}">Lasă un review</a>
+
+        <p style="margin-top: 30px;">Mulțumim pentru cumpărături!</p>
+    </div>
+</body>
+</html>

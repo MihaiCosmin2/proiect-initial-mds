@@ -76,6 +76,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     upload_date = models.DateField(auto_now_add=True)
     views = models.PositiveIntegerField(default=0)
+    sold = models.BooleanField(default=False)
     
     def __str__(self):
         return self.title
@@ -97,3 +98,21 @@ class Review(models.Model):
     comment = models.TextField(blank=True, null=True)
     upload_date = models.DateField(auto_now_add=True)
     
+class Transaction(models.Model):
+    seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sales')
+    buyer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='purchases')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.buyer} bought {self.product} from {self.seller} on {self.date}"
+
+class WishlistItem(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='wishlist')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    added_date = models.DateTimeField(auto_now_add=True)
+    initial_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.user} wants {self.product}"

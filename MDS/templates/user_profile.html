@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-lg mb-4">
+                <div class="card-body text-center">
+                    {% if user_profile.profile_picture %}
+                        <img src="{{ user_profile.profile_picture.url }}" class="rounded-circle mb-3" width="120" height="120" alt="Poza profil">
+                    {% else %}
+                        <div class="rounded-circle bg-secondary d-inline-block mb-3" style="width: 120px; height: 120px;"></div>
+                    {% endif %}
+                    <h3 class="card-title">{{ user_profile.username }}</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% if user_profile.birth_date %}
+                        <li class="list-group-item"><strong>Data nașterii:</strong> {{ user_profile.birth_date }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <h4 class="mb-3 mt-4 text-center">Recenzii primite</h4>
+
+            {% if reviews %}
+                {% for review in reviews %}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1"><strong>{{ review.buyer.username }}</strong> &mdash; {{ review.upload_date }}</h6>
+                                <span class="text-warning fw-bold">{{ review.rating }} ⭐</span>
+                            </div>
+                            {% if review.comment %}
+                                <p class="mt-2 mb-0">{{ review.comment }}</p>
+                                {% if request.user == review.buyer %}
+            <div class="mt-2">
+                <a href="{% url 'edit_review' review.id %}" class="text-blue-600 mr-3">Editează</a>
+                <a href="{% url 'delete_review' review.id %}" class="text-red-600">Șterge</a>
+            </div>
+        {% endif %}
+                            {% else %}
+                                <p class="text-muted fst-italic mt-2 mb-0">Fără comentariu.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-muted text-center">Acest utilizator nu a primit încă recenzii.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
