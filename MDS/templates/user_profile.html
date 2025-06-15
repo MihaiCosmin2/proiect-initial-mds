@@ -40,6 +40,12 @@
                                 {% endif %}
                             {% else %}
                                 <p class="text-muted fst-italic mt-2 mb-0">No comment.</p>
+                                {% if request.user == review.buyer %}
+                                  <div class="mt-2">
+                                    <a href="{% url 'edit_review' review.id %}" class="me-3 text-primary">Edit</a>
+                                    <a href="{% url 'delete_review' review.id %}" class="text-danger">Delete</a>
+                                  </div>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>

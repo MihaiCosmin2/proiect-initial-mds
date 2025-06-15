@@ -183,9 +183,18 @@ def edit_ad_view(request, pk):
         product.category = Category.objects.get(id=category_id)
         product.save()
         
-        wishlist_items = WishlistItem.objects.filter().select_related('product')
-        wishlist_users = [item.user for item in wishlist_items]
-        wishlist_users = set(wishlist_users)
+        delete_image_ids = request.POST.getlist('delete_images')
+        if delete_image_ids:
+            for img_id in delete_image_ids:
+                try:
+                    img = product.gallery_set.get(id=img_id)
+                    img.image.delete()  # Șterge fișierul de pe disc
+                    img.delete()        # Șterge instanța din DB
+                except Gallery.DoesNotExist:
+                    continue
+        
+        wishlist_items = WishlistItem.objects.filter(product=product).select_related('user')
+        wishlist_users = {item.user for item in wishlist_items if item.user != request.user}
 
         for user in wishlist_users:
             subject = f"Produsul „{product.title}” a fost actualizat!"
@@ -327,10 +336,10 @@ def leave_review(request, seller_id):
     already_reviewed = Review.objects.filter(buyer=request.user, seller=seller).exists()
 
     if not has_bought:
-        return render(request, 'not_allowed.html', {"message": "Nu poți lăsa un review fără să fi cumpărat de la acest vânzător."})
+        return render(request, 'not_allowed.html', {"message": "You can't leave a review."})
 
     if already_reviewed:
-        return render(request, 'not_allowed.html', {"message": "Ai lăsat deja un review pentru acest vânzător."})
+        return render(request, 'not_allowed.html', {"message": "You already left a review for this user."})
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)

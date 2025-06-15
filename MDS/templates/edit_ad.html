@@ -37,21 +37,22 @@
     </div>
 
     {% if product.gallery_set.all %}
-      <div class="mb-3">
-        <label class="form-label">Current Images</label>
-        <div class="row">
-          {% for img in product.gallery_set.all %}
-          <div class="col-3 mb-3 text-center">
-            <img src="{{ img.image.url }}" class="img-fluid mb-1" style="max-height: 100px;">
-            <form method="post" action="{% url 'delete_image' img.id %}">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-            </form>
-          </div>
-          {% endfor %}
+  <div class="mb-3">
+    <label class="form-label">Current Images</label>
+    <div class="row">
+      {% for img in product.gallery_set.all %}
+      <div class="col-3 mb-3 text-center">
+        <img src="{{ img.image.url }}" class="img-fluid mb-1" style="max-height: 100px;">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="delete_images" value="{{ img.id }}" id="img{{ img.id }}">
+          <label class="form-check-label" for="img{{ img.id }}">Delete</label>
         </div>
       </div>
-    {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
 
     <button type="submit" class="btn btn-success">Save Changes</button>
     <a href="{% url 'my_ads' %}" class="btn btn-secondary ms-2">Cancel</a>
