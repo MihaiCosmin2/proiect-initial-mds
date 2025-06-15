@@ -50,8 +50,10 @@
                 </div>
 
                 <div id="sign-in-form">
-                      {% if messages %}{% for m in messages %}
-                      <div class="alert alert-danger py-1">{{ m }}</div> {% endfor %}
+                      {% if signIn_form.errors %}
+                      <div class="alert alert-danger">
+                        {{ signIn_form.errors }}
+                      </div>
                       {% endif %}
                       <form method="post" action="{% url 'auth' %}">
                         {% csrf_token %}
@@ -82,12 +84,12 @@
                       <div class="mb-3">
                         <label for="id_email_su" class="form-label">Your Email Address:</label>
                         <input type="text" class="form-control" id="id_email_su" name="email"
-                                value="{{ old.email|default_if_none:''}}" required>
+                                value="{{ signUp_form.email.value|default_if_none:'' }}" required>
                       </div>
                       <div class="mb-3">
                         <label for="id_username_su" class="form-label">Username:</label>
                         <input type="text" class="form-control" id="id_username_su" name="username"
-                                value="{{ old.username|default_if_none:''}}" required>
+                                value="{{ signUp_form.email.value|default_if_none:'' }}" required>
                       </div>
                       <div class="mb-3">
                         <label for="id_password_su" class="form-label">Password:</label>
