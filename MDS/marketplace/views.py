@@ -41,37 +41,43 @@ def category_detail(request, slug):
 
 
 def auth_page(request):
-    signIn_form = CustomAuthenticationForm(request=request, data=request.POST or None)
-    signUp_form = CustomRegistrationForm(request.POST or None)
-
     if request.method == "POST":
         form_type = request.POST.get("form_type")
 
-        if form_type == "sign_in" and signIn_form.is_valid():
-            user = authenticate(request,
-                                username=signIn_form.cleaned_data["username"],
-                                password=signIn_form.cleaned_data["password"])
-            if user:
-                if user.blocat:
-                    messages.error(request, "Account blocked. Contact the Administrator.")
-                elif not user.confirmed_email:
-                    messages.error(request, "You need to validate your e-mail!")
-                else:
-                    login(request, user)
-                    return redirect("home")
+        if form_type == "sign_in":
+            signIn_form = CustomAuthenticationForm(request=request, data=request.POST or None)
+            signUp_form = CustomRegistrationForm()
+            if signIn_form.is_valid():
+                user = authenticate(request,
+                                    username=signIn_form.cleaned_data["username"],
+                                    password=signIn_form.cleaned_data["password"])
+                if user:
+                    if user.blocat:
+                        messages.error(request, "Account blocked. Contact the Administrator.")
+                    elif not user.confirmed_email:
+                        messages.error(request, "You need to validate your e-mail!")
+                    else:
+                        login(request, user)
+                        return redirect("home")
 
-        elif form_type == "sign_up" and signUp_form.is_valid():
-            user = signUp_form.save(commit=False)
-            user.confirmed_email = True
-            user.save()
-            login(request, user)
-            return redirect("home")
-
+        elif form_type == "sign_up":
+            signIn_form = CustomAuthenticationForm()
+            signUp_form = CustomRegistrationForm(request.POST or None)
+            
+            if signUp_form.is_valid():
+                user = signUp_form.save(commit=False)
+                user.confirmed_email = True
+                user.save()
+                login(request, user)
+                return redirect("home")
+    else:
+        signIn_form = CustomAuthenticationForm()
+        signUp_form = CustomRegistrationForm()
+        
     return render(request, "SignUp_OR_SignIn.html", {
         "signIn_form": signIn_form,
         "signUp_form": signUp_form,
-        "errors": signUp_form.errors,
-        "old": request.POST
+        "errors": signUp_form.errors
     })
 
 
