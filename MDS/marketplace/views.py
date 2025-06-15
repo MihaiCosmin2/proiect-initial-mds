@@ -74,6 +74,7 @@ def auth_page(request):
         signUp_form = CustomRegistrationForm()
 
 
+
     return render(request, "SignUp_OR_SignIn.html", {
         "signIn_form": signIn_form,
         "signUp_form": signUp_form,
