@@ -50,9 +50,11 @@
                 </div>
 
                 <div id="sign-in-form">
-                      {% if messages %}{% for m in messages %}
-                      <div class="alert alert-danger py-1">{{ m }}</div> {% endfor %}
-                      {% endif %}
+                    {% if signIn_form.errors %}
+                    <div class="alert alert-danger">
+                      {{ signIn_form.errors }}
+                    </div>
+                    {% endif %}
                       <form method="post" action="{% url 'auth' %}">
                         {% csrf_token %}
                         <input type="hidden" name="form_type" value="sign_in">
