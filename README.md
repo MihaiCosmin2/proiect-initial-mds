@@ -1,4 +1,4 @@
-# Descriere proiectului
+# Descrierea proiectului
 BuyIt este o platformă online de tip marketplace dezvoltată cu Django (Python) pentru backend și Bootstrap 5 pentru frontend.
 
 # Membrii echipei:
