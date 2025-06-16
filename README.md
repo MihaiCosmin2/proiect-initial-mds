@@ -2,9 +2,9 @@
 BuyIt este o platformă online de tip marketplace dezvoltată cu Django (Python) pentru backend și Bootstrap 5 pentru frontend.
 
 # Membrii echipei:
-- Mihai-Cosmin Serbanoiu
-- Craciun Denis-Cristian
-- Petre Andrei
+- [Mihai-Cosmin Serbanoiu](https://github.com/MihaiCosmin2)
+- [Craciun Denis-Cristian](https://github.com/decraciun)
+- [Petre Andrei](https://github.com/andrei3267)
 
 # User Stories pentru proiectul de Metode de Dezvoltare Software (Marketplace)
 
