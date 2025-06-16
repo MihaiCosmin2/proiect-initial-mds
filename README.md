@@ -33,3 +33,9 @@ BuyIt este o platformă online de tip marketplace dezvoltată cu Django (Python)
 # Am folosit si tool de AI in timpul dezvoltarii software
 - https://chatgpt.com/share/684ef6ba-6f58-8004-818c-a3eb45827f52
 ![ChatGPT](ChatGPT.png)
+
+# Demo Checkpoint 2
+[Link](https://youtu.be/IXj3vdOiuQM)
+
+# Demo final
+[Link](https://youtu.be/pfBJXP-jQMM)
